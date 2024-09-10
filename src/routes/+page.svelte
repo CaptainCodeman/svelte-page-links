@@ -7,6 +7,10 @@
 	let adjacent = 1
 </script>
 
+<svelte:head>
+	<title>svelte-page-links</title>
+</svelte:head>
+
 <h1 class="text-gray-700 font-extrabold tracking-tight text-3xl">
 	svelte-page-links
 	<a href="https://www.npmjs.com/package/svelte-page-links">
