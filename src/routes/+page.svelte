@@ -1,6 +1,8 @@
 <script lang="ts">
-	import Pages from 'svelte-page-links'
-	import type { Link } from 'svelte-page-links'
+	import { Pages, type Link } from 'svelte-page-links'
+	import Prism from 'prismjs'
+	import 'prism-svelte'
+	import 'prism-themes/themes/prism-vsc-dark-plus.css';
 
 	interface Props {
 		page: number
@@ -21,6 +23,82 @@
 		})
 		return '?' + params.toString()
 	}
+
+	const source = `
+<sc` + `ript lang="ts">
+  import { Pages, type Link } from 'svelte-page-links'
+
+  interface Props {
+    page: number
+    total: number
+    ends: number
+    adjacent: number
+  }
+
+  let { page, total, ends, adjacent }: Props = $props()
+</sc` + `ript>
+
+<nav class="mt-8 flex rounded-md shadow-sm -space-x-px select-none" aria-label="Pagination">
+  <Pages {page} {total} {ends} {adjacent}>
+    {#snippet prev(link: Link)}
+      <a
+        class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium hover:bg-gray-50 {link.disabled ? 'text-gray-300 pointer-events-none' : 'text-gray-500'}"
+        title="page {link.page}"
+        href="?page={link.page}"
+      >
+        <span class="sr-only">Previous</span>
+        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path
+            fill-rule="evenodd"
+            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </a>
+    {/snippet}
+
+    {#snippet next(link: Link)}
+      <a
+        class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium hover:bg-gray-50 {link.disabled ? 'text-gray-300 pointer-events-none' : 'text-gray-500'}"
+        title="page {link.page}"
+        href="?page={link.page}"
+      >
+        <span class="sr-only">Next</span>
+        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path
+            fill-rule="evenodd"
+            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </a>
+    {/snippet}
+
+    {#snippet link(link: Link)}
+      <a
+        class="relative inline-flex items-center px-4 py-2 border text-sm font-medium tabular-nums {link.active
+          ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600 pointer-events-none'
+          : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'}"
+        title="page {link.page}"
+        href="?page={link.page}"
+      >
+        {link.page}
+      </a>
+    {/snippet}
+
+    {#snippet divider(link: Link)}
+      <a
+        class="relative inline-flex items-center px-4 py-2 border text-sm font-medium bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
+        title="page {link.page}"
+        href="?page={link.page}"
+      >
+        &hellip;
+      </a>
+    {/snippet}
+  </Pages>
+</nav>
+`
+	const highlighted = Prism.highlight(source, Prism.languages.svelte, 'svelte');
 </script>
 
 <svelte:head>
@@ -38,7 +116,7 @@
 </h1>
 
 <p class="mt-2 text-gray-600">
-	Pagination links for Svelte
+	Pagination links for Svelte with configurable start, end, and adjacent links, with intelligent 'dividers' (no divider for single pages, and dividers link to half-way point).
 </p>
 
 <form class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-8" oninput={(e) => e.currentTarget.requestSubmit()} data-sveltekit-keepfocus>
@@ -63,7 +141,7 @@
 	</div>
 </form>
 
-<nav class="mt-8 flex rounded-md shadow-sm -space-x-px select-none" aria-label="Pagination">
+<nav class="my-8 flex rounded-md shadow-sm -space-x-px select-none" aria-label="Pagination">
 	<Pages {page} {total} {ends} {adjacent}>
 		{#snippet prev(link: Link)}
 			<a
@@ -118,3 +196,7 @@
 		{/snippet}
 	</Pages>
 </nav>
+
+<pre class="language-svelte rounded whitespace-normal">
+	<code class="language-svelte">{@html highlighted}</code>
+</pre>

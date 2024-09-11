@@ -1,2 +1,2 @@
 export * from './pages.js'
-export { default as default } from './Pages.svelte'
+export { default as Pages } from './Pages.svelte'
