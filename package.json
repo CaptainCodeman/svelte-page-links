@@ -1,7 +1,7 @@
 {
 	"name": "svelte-page-links",
 	"description": "Generate pagination links for svelte",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"keywords": [
 		"svelte",
 		"page",
