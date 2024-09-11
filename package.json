@@ -47,7 +47,7 @@
 		"@sveltejs/adapter-static": "^3.0.4",
 		"@sveltejs/kit": "^2.5.26",
 		"@sveltejs/package": "^2.3.4",
-		"@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
+		"@sveltejs/vite-plugin-svelte": "^4.0.0-next.7",
 		"@tailwindcss/forms": "^0.5.9",
 		"autoprefixer": "^10.4.20",
 		"publint": "^0.2.10",
@@ -55,7 +55,7 @@
 		"svelte-check": "^4.0.1",
 		"tailwindcss": "^3.4.10",
 		"typescript": "^5.6.2",
-		"vite": "^5.4.3",
+		"vite": "^5.4.4",
 		"vitest": "^2.0.5"
 	},
 	"svelte": "./dist/index.js",

@@ -1,16 +1,16 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte'
-	import { pages } from './pages.js'
+	import { pages, type Link } from './pages.js'
 
 	interface Props {
 		page: number
 		total: number
 		ends?: number
 		adjacent?: number
-		prev?: Snippet<[number]>,
-		next?: Snippet<[number]>,
-		link: Snippet<[number]>,
-		divider?: Snippet<[number]>,
+		prev?: Snippet<[Link]>,
+		next?: Snippet<[Link]>,
+		link: Snippet<[Link]>,
+		divider?: Snippet<[Link]>,
 	}
 
 	let { page, total, ends = 1, adjacent = 1, prev, next, link, divider }: Props = $props()
@@ -19,18 +19,18 @@
 
 {#each pageLinks as pageLink}
 	{#if pageLink.type === 'prev' && prev}
-		{@render prev(pageLink.page)}
+		{@render prev(pageLink)}
 	{/if}
 
 	{#if pageLink.type === 'next' && next}
-		{@render next(pageLink.page)}
+		{@render next(pageLink)}
 	{/if}
 
 	{#if pageLink.type === 'link'}
-		{@render link(pageLink.page)}
+		{@render link(pageLink)}
 	{/if}
 
 	{#if pageLink.type === 'divider' && divider}
-		{@render divider(pageLink.page)}
+		{@render divider(pageLink)}
 	{/if}
 {/each}
