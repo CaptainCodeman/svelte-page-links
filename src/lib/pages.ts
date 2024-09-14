@@ -31,7 +31,8 @@ export function* pages(page: number, total: number, ends = 1, adjacent = 1): Gen
 			(p >= left && p <= right) ||
 			// avoid dividers if it's a single page
 			(p === left - 1 && p === first + 1) ||
-			(p === right + 1 && p === last - 1)
+			(p === right + 1 && p === last - 1) ||
+			(p == first + 1 && p === last - 1)
 		) {
 			yield { page: p, type: 'link', active: p === page, disabled: p === page }
 			p++

@@ -22,7 +22,7 @@ function render(links: Generator<Link>) {
 	return results.join()
 }
 
-describe('pages', () => {
+describe('10 pages, 2 end, 1 adjacent', () => {
 	test.each([
 		{
 			page: 1,
@@ -76,5 +76,37 @@ describe('pages', () => {
 		},
 	])('pages($page, $total) -> $expected', ({ page, total, expected }) => {
 		expect(render(pages(page, total, 2))).deep.eq(expected)
+	})
+})
+
+describe('5 pages, 2 end, 0 adjacent', () => {
+	test.each([
+		{
+			page: 1,
+			total: 5,
+			expected: '<1,1,2,3,4,5,2>',
+		},
+		{
+			page: 2,
+			total: 5,
+			expected: '<1,1,2,3,4,5,3>',
+		},
+		{
+			page: 3,
+			total: 5,
+			expected: '<2,1,2,3,4,5,4>',
+		},
+		{
+			page: 4,
+			total: 5,
+			expected: '<3,1,2,3,4,5,5>',
+		},
+		{
+			page: 5,
+			total: 5,
+			expected: '<4,1,2,3,4,5,5>',
+		},
+	])('pages($page, $total) -> $expected', ({ page, total, expected }) => {
+		expect(render(pages(page, total, 2, 0))).deep.eq(expected)
 	})
 })
